@@ -1,0 +1,150 @@
+.main-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease 1s, visibility 0s linear 1s; 
+    overflow-y: auto;
+    
+    /* A subtle dark overlay so the white card stands out */
+    background: rgba(0, 0, 0, 0.3); 
+}
+
+.main-content.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s ease 0.5s; 
+}
+
+.invitation-card {
+    background: white;
+    max-width: 600px;
+    width: 100%;
+    padding: 60px 50px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+/* Staggered Animations controlled by React state */
+.stagger {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.main-content.show .stagger-1 { transition-delay: 1.2s; opacity: 1; transform: translateY(0); }
+.main-content.show .stagger-2 { transition-delay: 1.4s; opacity: 1; transform: translateY(0); }
+.main-content.show .stagger-3 { transition-delay: 1.6s; opacity: 1; transform: translateY(0); }
+.main-content.show .stagger-4 { transition-delay: 1.8s; opacity: 1; transform: translateY(0); }
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.divider {
+    width: 50px;
+    height: 2px;
+    background: var(--accent);
+    margin: 0 auto 30px auto;
+}
+
+.details {
+    display: flex;
+    justify-content: space-around;
+    background: #fcfcfc;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.detail-block {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: default;
+}
+
+.detail-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+    background-color: #fff;
+}
+
+.detail-block h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin: 0 0 5px 0;
+}
+
+.detail-block p {
+    margin: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Sweep effect for the button */
+@keyframes shimmerSweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+.rsvp-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden; /* Keeps the shimmer locked inside */
+}
+
+.rsvp-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    animation: shimmerSweep 3s infinite;
+}
+
+.rsvp-btn:hover {
+    background: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(211, 84, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    .details { flex-direction: column; text-align: center; gap: 20px; }
+    .invitation-card { padding: 40px 20px; }
+    .intro-text { font-size: 2.2rem; }
+}
